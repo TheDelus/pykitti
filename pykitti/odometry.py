@@ -116,11 +116,11 @@ class odometry:
         """Generator to read semantic_kitti velodyne scan labels from binary files."""
         # Return a generator yielding Velodyne scans.
         # Each scan is a Nx4 array of [x,y,z,reflectance]
-        return utils.yield_velo_scans(self.velo_label_files)
+        return utils.yield_velo_labels(self.velo_label_files)
 
     def get_velo_labels(self, idx):
         """Read velodyne semantic_kitti scan label at the specified index."""
-        return utils.load_velo_scan(self.velo_label_files[idx])
+        return utils.load_velo_label(self.velo_label_files[idx])
 
     def _get_file_lists(self):
         """Find and list data files for each sensor."""
