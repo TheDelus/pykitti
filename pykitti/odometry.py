@@ -111,6 +111,17 @@ class odometry:
         """Read velodyne [x,y,z,reflectance] scan at the specified index."""
         return utils.load_velo_scan(self.velo_files[idx])
 
+    @property
+    def velo_labels(self):
+        """Generator to read velodyne [x,y,z,reflectance] scan data from binary files."""
+        # Return a generator yielding Velodyne scans.
+        # Each scan is a Nx4 array of [x,y,z,reflectance]
+        return utils.yield_velo_scans(self.velo_labels)
+
+    def get_velo_labels(self, idx):
+        """Read velodyne [x,y,z,reflectance] scan at the specified index."""
+        return utils.load_velo_scan(self.velo_labels[idx])
+
     def _get_file_lists(self):
         """Find and list data files for each sensor."""
         self.cam0_files = sorted(glob.glob(
@@ -128,6 +139,9 @@ class odometry:
         self.velo_files = sorted(glob.glob(
             os.path.join(self.sequence_path, 'velodyne',
                          '*.bin')))
+        self.velo_labels = sorted(glob.glob(
+            os.path.join(self.sequence_path, 'labels',
+                         '*.label')))
 
         # Subselect the chosen range of frames, if any
         if self.frames is not None:
@@ -140,6 +154,8 @@ class odometry:
             self.cam3_files = utils.subselect_files(
                 self.cam3_files, self.frames)
             self.velo_files = utils.subselect_files(
+                self.velo_files, self.frames)
+            self.velo_labels = utils.subselect_files(
                 self.velo_files, self.frames)
 
     def _load_calib(self):

@@ -163,3 +163,16 @@ def yield_velo_scans(velo_files):
     """Generator to parse velodyne binary files into arrays."""
     for file in velo_files:
         yield load_velo_scan(file)
+
+
+def load_velo_label(file):
+    """Load and parse a semantic_kitti velodyne label binary file."""
+    scan = np.fromfile(file, dtype=np.uint32)
+    return scan.reshape((-1, 1))
+
+
+def yield_velo_labels(velo_label_files):
+    """Generator to parse semantic_kitti velodyne label binary files into arrays."""
+    for file in velo_label_files:
+        yield load_velo_label(file)
+
