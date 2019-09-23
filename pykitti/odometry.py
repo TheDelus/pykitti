@@ -139,7 +139,7 @@ class odometry:
         self.velo_files = sorted(glob.glob(
             os.path.join(self.sequence_path, 'velodyne',
                          '*.bin')))
-        self.velo_labels = sorted(glob.glob(
+        self.velo_label_files = sorted(glob.glob(
             os.path.join(self.sequence_path, 'labels',
                          '*.label')))
 
