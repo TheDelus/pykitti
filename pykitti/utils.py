@@ -167,8 +167,9 @@ def yield_velo_scans(velo_files):
 
 def load_velo_label(file):
     """Load and parse a semantic_kitti velodyne label binary file."""
-    scan = np.fromfile(file, dtype=np.uint32)
-    return scan.reshape(-1)
+    labels = np.fromfile(file, dtype=np.uint32)
+    labels = labels & 0xFFFF
+    return labels.reshape(-1)
 
 
 def yield_velo_labels(velo_label_files):
